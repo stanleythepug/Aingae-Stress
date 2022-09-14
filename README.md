@@ -14,3 +14,5 @@ Relevant weighted constraints are Max/Dep (Path) Left/Right Foot edge. A path co
 The different behaviour of recessive and dominant prestressing suffixes if due to a weaker input activation on the right Foot edge of R than on D.
 
 The tendency of prestressing to fall before the leftmost prestressing suffix is due to a constraint that requires an input right Foot edge to surface, but it is evaluated locally: only when it falls in a Foot.
+
+Among the 25 examples in the learning algorithm, 13 are training (result in modifications to weights and activations if result in an epoch is incorrect) and 12 are testing (no modifications result if they are incorrect on an epoch before all examples are correct.)
