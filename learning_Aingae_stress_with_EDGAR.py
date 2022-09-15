@@ -23,8 +23,8 @@ for epoch in range(30):
     num_correct = 0
     print('\n(AAA')
     num_tested += 1
-    f1 = A*mpl + A*ml -(1-A)*dpl -(1-A)*dl -dpr
-    f2 =       A*ml       -dpl -(1-A)*dl  -dpr  +ar
+    f1 = A*mpl + A*ml -dl*(1-A) -(1-A)*dpl -dpr -dr
+    f2 =         A*ml -dl*(1-A)       -dpl -dpr -dr  +ar
     print(round(f1, 4), round(f2, 4))
     if f1 > f2:
         num_correct += 1
@@ -38,8 +38,11 @@ for epoch in range(30):
 
     print('\n(AA(S)')
     num_tested += 1
-    f1 = A*mpl -(1-A)*dpl -(1-A)*dl -dpr
-    f2 = dpl -dl*(1-A) -dpr*(1-Sr) + Sr*mpr +ar
+    f1 = A*ml +A*mpl -(1-A)*dpl -(1-A)*dl     -dr       -dpr
+    f2 = A*ml             -dpl  -dl*(1-A) -dr*(1-Sr) -dpr*(1-Sr) + Sr*mr +Sr*mpr +ar
+    print(round(f1, 4), round(f2, 4))
+    #print(A*ml, A*mpl, -(1-A)*dpl, -dpl, -(1-A)*dl, -dr, -dr*(1-Sr), Sr*mr, Sr*mpr, ar)
+    #print(A, mpl, A*mpl)
     if f1 < f2:
         num_correct += 1
         print('CORRECT')
@@ -55,8 +58,9 @@ for epoch in range(30):
 
     print('\nUU(S)')
     num_tested += 1
-    f1 = -dpr -dep_anch_left_stem -dpl
-    f2 = Sr*mpr -(1-Sr)*dpr + ar -dpl
+    f1 =  -dl        -dpl                 -dr        -dpr -dep_anch_left_stem  #(UU)S
+    f2 =  -dl*(1-Sl) -dpl  +Sr*mr +Sr*mpr -dr*(1-Sr) -dpr*(1-Sr) + ar #U(US)
+    print(round(f1, 4), round(f2, 4))
     if f2 > f1:
         num_correct += 1
         print('CORRECT')
@@ -69,6 +73,7 @@ for epoch in range(30):
     if f3 > max(f1, f2):
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4), round(f3, 4))
     else:
         print('INCORRECT')
         print(round(f1, 4), round(f2, 4), round(f3, 4))
@@ -84,12 +89,13 @@ for epoch in range(30):
     print('\n(AA(S)(S)N')
     num_tested += 1
     f1 = A*mpl +A*ml -(1-A)*dpl     -(1-A)*dl    -dr        -dpr #(AA)SSN
-    f2 =       +A*ml      -dpl      -dl*(1-A)    -dr*(1-Sr) -dpr*(1-Sr) #A(AS)SN
+    f2 =       +A*ml      -dpl      -dl*(1-A)    -dr*(1-Sr) -dpr*(1-Sr) +mr*Sr +mpr*Sr  #A(AS)SN
     f3 = Sl*mpl +Sl*ml     -dpl*(1-Sl) -dl*(1-Sl) -dr*(1-Sr)  -dpr*(1-Sr) +mr*Sr +mpr*Sr  -anch_r_ft_edge*Sr       #AA(SS)N
     f4 = Sl*mpl +Sl*ml     -dpl*(1-Sl) -dl*(1-Sl) -dr*(1-Sr)  -dpr        +mr*Sr          -anch_r_ft_edge*Sr   +ar #AAS(SN)
     if f4 > max(f1, f2, f3):
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4), round(f3, 4), round(f4, 4))
     else:
         print('INCORRECT')
         print(round(f1, 4), round(f2, 4), round(f3, 4), round(f4, 4))
@@ -98,9 +104,9 @@ for epoch in range(30):
 
     print('\nUUR)R)')
     num_tested += 1
-    f1 = -dpl -dl  -dpr -dep_anch_left_stem            #(UU)RR
-    f2 = -dpl -dl -dpr*(1-R)                           #U(UR)R
-    f3 = -dpl -dl -dpr*(1-R) + ar -anch_r_ft_edge*R    #UU(RR)
+    f1 = -dpl -dl               -dr       -dpr     -dep_anch_left_stem            #(UU)RR
+    f2 = -dpl -dl +mr*R  +mpr*R -dr*(1-R) -dpr*(1-R)        #U(UR)R
+    f3 = -dpl -dl +mr*R  +mpr*R -dr*(1-R) -dpr*(1-R)  +ar -anch_r_ft_edge*R    #UU(RR)
     if f2 > max(f1,f3):
         num_correct += 1
         print('CORRECT')
@@ -122,6 +128,7 @@ for epoch in range(30):
     if f2 > max(f1, f3, f4):
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4), round(f3, 4), round(f4, 4))
     else:
         print('INCORRECT')
         print(round(f1, 4), round(f2, 4), round(f3, 4), round(f4, 4))
@@ -166,10 +173,10 @@ for epoch in range(30):
 
     print('\n(AANNR)')
     num_tested += 1
-    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl -dr -dpr #(AA)NNR
+    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl    -dr       -dpr #(AA)NNR
     f2 =        A*ml        -dpl   -dl*(1-A) -dr*(1-R) -dpr  +mr*R #A(AN)NR
-    f3 =                    -dpl  -(1-R)*dl -dr*(1-R)  -dpr +mr*R #AA(NN)R
-    f4 =                    -dpl        -dl -dr*(1-R)   -dpr*(1-R) +mr*R +ar #AAN(NR)
+    f3 =                    -dpl  -dl        -dr*(1-R)  -dpr +mr*R #AA(NN)R
+    f4 =                    -dpl   -dl       -dr*(1-R)   -dpr*(1-R) +mr*R +mpr*R +ar #AAN(NR)
     if f1 > max(f2,f3,f4):
         num_correct += 1
         print('CORRECT')
@@ -190,11 +197,13 @@ for epoch in range(30):
         print(round(f1, 4), round(f2, 4))
     else:
         print('INCORRECT')
+        print(round(f1, 4), round(f2, 4))
     
     print('\nUNN')
     num_tested += 1
     f1 = -dpl -dl  -dpr -dr -dep_anch_left_stem #(UN)N
     f2 = -dpl -dl -dpr -dr +ar #U(NN)
+    print(round(f1, 4), round(f2, 4))
     if f2 > f1:
         num_correct += 1
         print('CORRECT')
@@ -203,8 +212,9 @@ for epoch in range(30):
 
     print('\nUN(S)')
     num_tested += 1
-    f1 = -dpl -dl  -dpr        -dr -dep_anch_left_stem #(UN)S
-    f2 = -dpl -dl +Sl*ml -dpr*(1-Sr) -dr*(1-Sr) +ar +Sr*mpr #U(NS)
+    f1 =       -dpl -dl        -dpr        -dr*(1-Sr) +mr*Sr -dep_anch_left_stem #(UN)S
+    f2 = ml*Sl -dpl -dl*(1-Sl) -dpr*(1-Sr) -dr*(1-Sr) +mr*Sr  +Sr*mpr +ar #U(NS)
+    print(round(f1, 4), round(f2, 4))
     if f2 > f1:
         num_correct += 1
         print('CORRECT')
@@ -213,10 +223,10 @@ for epoch in range(30):
 
     print('\n(AANN(S)')
     num_tested += 1
-    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl -dr -dpr #(AA)NNS
-    f2 =       +A*ml      -dpl  -(1-A)*dl -dr -dpr #A(AN)NS
-    f3 = -dpl  -(1-Sl)*dl -dpr        -(1-Sr)*dr + Sl*ml +Sr*mr#AA(NN)S
-    f4 = -dpl  -(1-Sl)*dl -(1-Sr)*dpr -(1-Sr)*dr + Sl*ml + Sr*mr  +Sr*mpr + ar #AAN(NS)
+    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl -dr         -dpr #(AA)NNS
+    f2 =       +A*ml      -dpl  -(1-A)*dl -(1-Sr)*dr  -dpr        +Sr*mr #A(AN)NS
+    f3 =       +Sl*ml     -dpl  -(1-Sl)*dl -(1-Sr)*dr -dpr        +Sr*mr#AA(NN)S
+    f4 =       +Sl*ml     -dpl  -(1-Sl)*dl -(1-Sr)*dr -(1-Sr)*dpr +Sr*mr  +Sr*mpr +ar #AAN(NS)
     if f4 > max(f1, f2, f3):
         num_correct += 1
         print('CORRECT')
@@ -230,9 +240,10 @@ for epoch in range(30):
 
     print('\nUU(S)(S)')
     num_tested += 1
-    f1 = -dpl -dl  -dpr        -dr -dep_anch_left_stem #(UU)SS
-    f2 = -dpl -dl -dpr*(1-Sr) -dr*(1-Sr) + Sr*mr + Sr*mpr #U(US)S
-    f3 = -dpl*(1-Sl) -dl*(1-Sl)  -dr*(1-Sr) +Sr*mr +Sr*mpr +ar -anch_r_ft_edge*Sr #UU(SS)
+    f1 =               -dpl         -dl          -dpr        -dr          -dep_anch_left_stem #(UU)SS
+    f2 =                -dpl        -dl          -dpr*(1-Sr) -dr*(1-Sr) + Sr*mr + Sr*mpr #U(US)S
+    f3 = ml*Sl + mpl*Sl -dpl*(1-Sl) -dl*(1-Sl)   -dpr*(1-Sr) -dr*(1-Sr) +Sr*mr +Sr*mpr +ar -anch_r_ft_edge*Sr #UU(SS)
+    #print(ml*Sl, mpl*Sl, dl*(1-Sl), dpl*(1-Sl), mr*Sr, mpr*Sr, dr*(1-Sr), dpr*(1-Sr), ar, anch_r_ft_edge*Sr)
     if f3 > max(f1, f2):
         num_correct += 1
         print('CORRECT')
@@ -245,13 +256,15 @@ for epoch in range(30):
 
     print('\n(AA(S)(S)')
     num_tested += 1
-    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl -dr -dpr #(AA)SS
-    f2 = A*ml -dpl -dl*(1-A) -dr*(1-Sr) -dpr*(1-Sr) +Sr*mpr + Sr*mr #A(AS)S
-    f3 = -dpl*(1-Sl) -dl*(1-Sl) +ml*Sl +mpl*Sl -dr*(1-Sr) -dpr*(1-Sr) +Sl*mpl +Sl*ml +ar -anch_r_ft_edge*Sr #AA(SS)
+    f1 = A*mpl    +A*ml -(1-A)*dpl -(1-A)*dl    -dr        -dpr #(AA)SS
+    f2 =           A*ml -dpl       -dl*(1-A)    -dr*(1-Sr) -dpr*(1-Sr) +Sr*mpr +Sr*mr #A(AS)S
+    f3 = +mpl*Sl  +ml*Sl -dpl*(1-Sl) -dl*(1-Sl) -dr*(1-Sr) -dpr*(1-Sr) +Sr*mpr +Sr*mr +ar -anch_r_ft_edge*Sr #AA(SS)
     if f3 > max(f1, f2):
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4), round(f3, 4))
     else:
+        print('INCORRECT')
         print(round(f1, 4), round(f2, 4), round(f3, 4))
         ar += lr
         Sr -= lr
@@ -264,6 +277,7 @@ for epoch in range(30):
     if f1 > f2:
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4))
     else:
         print('INCORRECT')
         print(round(f1, 4), round(f2, 4))
@@ -273,11 +287,12 @@ for epoch in range(30):
     print('\n(AAR)R)')
     num_tested += 1
     f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl   -dr        -dpr                                             #(AA)RR
-    f2 =        A*ml -dpl        -dl*(1-A)  -dr*(1-R) -dpr*(1-R) +R*mpr +R*mr                           #A(AR)R
-    f3 =               -dpl        -dl      -dr*(1-R) -dpr*(1-R) +R*mpr +R*mr  +ar  -anch_r_ft_edge*R   #AA(RR)
+    f2 =        A*ml -dpl        -dl*(1-A)  -dr*(1-R)  -dpr*(1-R) +R*mpr +R*mr                           #A(AR)R
+    f3 =             -dpl        -dl        -dr*(1-R)  -dpr*(1-R) +R*mpr +R*mr  +ar  -anch_r_ft_edge*R   #AA(RR)
     if f1 > max(f2, f3):
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4), round(f3, 4))
     else:
         print('INCORRECT')
         print(round(f1, 4), round(f2, 4), round(f3, 4))
@@ -290,14 +305,16 @@ for epoch in range(30):
     if f1 > f2:
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4))
     else:
         print('INCORRECT')
+        print(round(f1, 4), round(f2, 4))
 
     print('\n(AA(S)R)')
     num_tested += 1
-    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl -dr -dpr #(AA)SR
-    f2 =        A*ml        -dpl   -dl*(1-A) -dr*(1-Sr) -dpr*(1-Sr) + mpr*Sr + mr*Sr #A(AS)R
-    f3 =   Sl*mpl  +Sl*ml  -(1-Sl)*dpl  -(1-Sl)*dl -dr*(1-max(Sr,R))  -dpr +mr*max(Sr,R) -anch_r_ft_edge*Sr +ar #AA(SR)
+    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl -dr                     -dpr #(AA)SR
+    f2 =        A*ml        -dpl -dl*(1-A) -dr*(1-Sr)             -dpr*(1-Sr) + mpr*Sr + mr*Sr #A(AS)R
+    f3 = Sl*mpl  +Sl*ml  -(1-Sl)*dpl -(1-Sl)*dl -dr*(1-max(Sr,R))  -dpr*(1-R) +mr*max(Sr,R) + mpr*R -anch_r_ft_edge*Sr +ar #AA(SR)
     if f3 > max(f1, f2):
         num_correct += 1
         print('CORRECT')
@@ -316,17 +333,18 @@ for epoch in range(30):
     if f2 > max(f1, f3):
         num_correct += 1
         print('CORRECT')
+        print(round(f1, 4), round(f2, 4), round(f3, 4))
     else:
         print('INCORRECT')
         print(round(f1, 4), round(f2, 4), round(f3, 4))
 
     print('\nUU(S)ND)D)')
     num_tested += 1
-    f1 = -dpl         -dl       -dpr        -dr                           -dep_anch_left_stem #(UU)SNDD
-    f2 = -dpl         -dl      -dpr*(1-Sr) -dr*(1-D) +D*mr +Sr*mpr                           #U(US)NDD
-    f3 = -dpl*(1-Sl) -dl*(1-D) -dpr        -dr*(1-D) +D*mr +Sr*mpr        -anch_r_ft_edge*Sr #UU(SN)DD
-    f4 = -dpl         -dl*(1-D) -dpr*(1-D) -dr*(1-D) +D*mr +D*mpr                            #UUS(ND)D
-    f5 =  -dpl        -dl*(1-D) -dpr*(1-D) -dr*(1-D) +D*mr +D*mpr   +ar    -anch_r_ft_edge*Sr #UUSN(DD)
+    f1 =               -dpl         -dl       -dpr        -dr                           -dep_anch_left_stem #(UU)SNDD
+    f2 =               -dpl         -dl      -dpr*(1-Sr) -dr*(1-D)  +D*mr +Sr*mpr                           #U(US)NDD
+    f3 = ml*Sl +mpl*Sl -dpl*(1-Sl) -dl*(1-Sl) -dpr        -dr*(1-D) +D*mr                -anch_r_ft_edge*Sr #UU(SN)DD
+    f4 = ml*Sl         -dpl         -dl*(1-Sl) -dpr*(1-D) -dr*(1-D) +D*mr +D*mpr                            #UUS(ND)D
+    f5 = ml*Sl         -dpl        -dl*(1-Sl) -dpr*(1-D)  -dr*(1-D) +D*mr +D*mpr   +ar    -anch_r_ft_edge*D #UUSN(DD)
 
     if f4 > max(f1, f2, f3, f5):
         num_correct += 1
@@ -339,10 +357,11 @@ for epoch in range(30):
 
     print('\n(AN(S)D)D)')
     num_tested += 1
-    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl   -dr       -dpr                         #(AN)SDD
-    f2 =       +Sl*ml      -dpl -dl         -dr*(1-Sr) -dpr*(1-Sr) +Sr*mpr + Sr*mr  #A(NS)DD
-    f3 = Sl*mpl +Sl*ml -(1-Sl)*dpl -(1-Sl)*dl -dr*(1-D) -dpr*(1-D)  +D*mpr  +D*mr    #AN(SD)D
-    f4 =        +Sl*ml -dpl        -(1-Sl)*dl  -dr*(1-D) -dpr*(1-D)  +D*mpr +D*mr +ar -anch_r_ft_edge*Sr #ANS(DD)
+    f1 = A*mpl +A*ml -(1-A)*dpl    -(1-A)*dl   -dr       -dpr                         #(AN)SDD
+    f2 =       +Sl*ml      -dpl    -(1-Sl)*dl  -dr*(1-D) -dpr*(1-Sr) +Sr*mpr + D*mr  #A(NS)DD
+    f3 = Sl*mpl +Sl*ml -(1-Sl)*dpl -(1-Sl)*dl -dr*(1-D) -dpr*(1-D)  +D*mpr  +D*mr  -anch_r_ft_edge*Sr  #AN(SD)D
+    f4 =        +Sl*ml -dpl        -(1-Sl)*dl  -dr*(1-D) -dpr*(1-D)  +D*mpr +D*mr +ar -anch_r_ft_edge*D #ANS(DD)
+    print(round(f1, 4), round(f2, 4), round(f3, 4), round(f4, 4))
     if f3 > max(f1, f2, f4):
         num_correct += 1
         print('CORRECT')
@@ -352,11 +371,11 @@ for epoch in range(30):
 
     print('\n(AA(S)ND)D)')
     num_tested += 1
-    f1 = A*mpl +A*ml -(1-A)*dpl -(1-A)*dl -dr -dpr #(AA)SNDD
-    f2 =        A*ml        -dpl   -dl*(1-A) -dr*(1-Sr) -dpr*(1-Sr) + mpr*Sr + mr*Sr #A(AS)NDD
-    f3 =   Sl*mpl  +Sl*ml  -(1-Sl)*dpl  -(1-Sl)*dl -dr*(1-max(Sr,D))  -dpr +mr*max(Sr,D) -anch_r_ft_edge*Sr #AA(SN)DD
-    f4 =           +Sl*ml        -dpl   -(1-Sl)*dl -dr*(1-D)          -dpr*(1-D) +mr*D             +mpr*D       #AAS(ND)D
-    f5 =           +Sl*ml        -dpl   -(1-Sl)*dl -dr*(1-D)         -dpr*(1-D) +mr*D                +mpr*D +ar -anch_r_ft_edge*D #AASN(DD)  
+    f1 = A*mpl  +A*ml -(1-A)*dpl -(1-A)*dl     -dr         -dpr #(AA)SNDD
+    f2 =         A*ml        -dpl   -dl*(1-A)  -dr*(1-D)   -dpr*(1-Sr) +mr*D +mpr*Sr #A(AS)NDD
+    f3 = Sl*mpl +Sl*ml  -(1-Sl)*dpl  -(1-Sl)*dl -dr*(1-D)  -dpr      +mr*D             -anch_r_ft_edge*Sr #AA(SN)DD
+    f4 =        +Sl*ml       -dpl   -(1-Sl)*dl -dr*(1-D)   -dpr*(1-D) +mr*D  +mpr*D       #AAS(ND)D
+    f5 =        +Sl*ml       -dpl   -(1-Sl)*dl -dr*(1-D)   -dpr*(1-D) +mr*D  +mpr*D +ar -anch_r_ft_edge*D #AASN(DD)  
     if f4 > max(f1, f2, f3, f5):
         num_correct += 1
         print('CORRECT')
