@@ -11,8 +11,8 @@ The essentials of the analysis are as follows. Morphemes are abbreviated as A=ac
 
 Relevant weighted constraints are Max/Dep (Path) Left/Right Foot edge. A path constraint requires that input and output Foot edges correspond in position but non-path constraints do not care EXCEPT that I posit a highly-weighted crisp-edge or RightAnchor constraint on stems that prevent a stem's Foot edge from surfacing in the suffix domain and vice versa.
 
-The different behaviour of recessive and dominant prestressing suffixes if due to a weaker input activation on the right Foot edge of R than on D.
+The different behaviour of recessive and dominant prestressing suffixes is due to a weaker input activation on the right Foot edge of R than on D.
 
-The tendency of prestressing to fall before the leftmost prestressing suffix is due to a constraint that requires an input right Foot edge to surface, but it is evaluated locally: only when it falls in a Foot.
+The tendency of prestressing to fall before the leftmost prestressing suffix is due to a constraint that requires an input right Foot edge to surface, but it is evaluated locally: only when it falls inside a Foot.
 
 Among the 25 examples in the learning algorithm, 13 are training (result in modifications to weights and activations if result in an epoch is incorrect) and 12 are testing (no modifications result if they are incorrect on an epoch before all examples are correct.)
